@@ -74,4 +74,10 @@ initiad status 2>&1 | jq .sync_info
 ```bash
 cd .initia; cd config; cat priv_validator_key.json
 ```
+
 Please Backup Your priv_validator_key.json, and don't tell to anybody
+
+## Sumbit your node information
+This the from:
+[Node Initia]([URL](https://docs.google.com/forms/d/e/1FAIpQLSc09Kl6mXyZHOL12n_6IUA8MCcL6OqzTqsoZn9N8gpptoeU_Q/viewform
+))
