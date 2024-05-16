@@ -25,6 +25,7 @@ Welcome to the Initia Node Setup Guide. This document will guide you through the
     ```bash
     source $HOME/.bash_profile
     ```
+### Before your create wallet and validator, please sync your node first
 
 ## Create Wallet
 
