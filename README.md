@@ -26,6 +26,10 @@ initiad keys add wallet
 
 Please Backup Your Phrase and Wallet, and don't tell to anybody
 
+## Faucet
+
+https://faucet.testnet.initia.xyz/
+
 ##  See your wallet after create
 ```bash
 initiad keys list
