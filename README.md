@@ -52,19 +52,19 @@ Get testnet tokens from the faucet:
 1. Submit a transaction to create a validator:
     ```bash
     initiad tx mstaking create-validator \
-    --amount 1000000uinit \
-    --pubkey $(initiad tendermint show-validator) \
-    --moniker "Your_Name" \
-    --identity "keybase" \
-    --details "Your_Details" \
-    --website "Your_Web_Or_Twitter" \
-    --chain-id initiation-1 \
-    --commission-rate 0.05 \
-    --commission-max-rate 0.2 \
-    --commission-max-change-rate 0.05 \
-    --from wallet \
-    --fees 300000uinit \
-    -y
+--amount 1000000uinit \
+--pubkey $(initiad tendermint show-validator) \
+--moniker "your_moniker" \
+--details "your_detail" \
+--website "your_web_or_twitter" \
+--chain-id initiation-1 \
+--commission-rate 0.05 \
+--commission-max-rate 0.20 \
+--commission-max-change-rate 0.05 \
+--from wallet \
+--gas-adjustment 1.4 \
+--gas 1000000 \
+--gas-prices 0.15uinit \
     ```
 
 ## Monitor Node
