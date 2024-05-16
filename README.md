@@ -3,7 +3,7 @@
 Welcome to the Initia Node Setup Guide. This document will guide you through the process of setting up your Initia node, creating a wallet, managing your node, and submitting your node information.
 
 # Help me, to stake on my validator
-[kinonomad](https://app.testnet.initia.xyz/stake?withValidator=initvaloper1yk2jssndh98n8rcz96xqyfk0qvs7km50np0u26)
+# [kinonomad](https://app.testnet.initia.xyz/stake?withValidator=initvaloper1yk2jssndh98n8rcz96xqyfk0qvs7km50np0u26)
 
 ## Minimum Requirements
 
