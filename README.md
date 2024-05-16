@@ -79,5 +79,4 @@ Please Backup Your priv_validator_key.json, and don't tell to anybody
 
 ## Sumbit your node information
 This the from:
-[Node Initia]([URL](https://docs.google.com/forms/d/e/1FAIpQLSc09Kl6mXyZHOL12n_6IUA8MCcL6OqzTqsoZn9N8gpptoeU_Q/viewform
-))
+[Node Initia]([https://docs.google.com/forms/d/e/1FAIpQLSc09Kl6mXyZHOL12n_6IUA8MCcL6OqzTqsoZn9N8gpptoeU_Q/viewform])
