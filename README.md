@@ -1,87 +1,99 @@
-# Initia Node
+# Initia Node Setup Guide
 
-## Minimum Req
-CPU: 4 cores
-Memory: 16GB RAM
-Disk: 1 TB SSD Storage
+## Minimum Requirements
+- **CPU**: 4 cores
+- **Memory**: 16GB RAM
+- **Disk**: 1 TB SSD Storage
 
 ## Install Node
-```bash
-wget -O initia.sh https://raw.githubusercontent.com/shidiqmuh0/initia-node/main/initia.sh; chmod +x initia.sh
-```
 
-```bash
-./initia.sh
-```
-Input your name, after run initia.sh
+1. Download and prepare the installation script:
+    ```bash
+    wget -O initia.sh https://raw.githubusercontent.com/shidiqmuh0/initia-node/main/initia.sh; chmod +x initia.sh
+    ```
 
-```bash
-source $HOME/.bash_profile
-```
+2. Run the installation script and follow the prompts to input your name:
+    ```bash
+    ./initia.sh
+    ```
+
+3. Load the new profile settings:
+    ```bash
+    source $HOME/.bash_profile
+    ```
 
 ## Create Wallet
-```bash
-initiad keys add wallet
-```
 
-Please Backup Your Phrase and Wallet, and don't tell to anybody
+1. Create a new wallet:
+    ```bash
+    initiad keys add wallet
+    ```
+    **Important**: Backup your mnemonic phrase and wallet information securely. Do not share this information with anyone.
 
 ## Faucet
 
-https://faucet.testnet.initia.xyz/
+Get testnet tokens from the faucet:
+[Initia Faucet](https://faucet.testnet.initia.xyz/)
 
-##  See your wallet after create
-```bash
-initiad keys list
-```
+## Wallet Management
 
-## Check Balance
-```bash
-initiad q bank balances $(initiad keys show wallet -a)
-```
+1. View your wallet details:
+    ```bash
+    initiad keys list
+    ```
+
+2. Check your wallet balance:
+    ```bash
+    initiad q bank balances $(initiad keys show wallet -a)
+    ```
 
 ## Create Validator
-```bash
-initiad tx mstaking create-validator \
---amount 1000000uinit \
---pubkey $(initiad tendermint show-validator) \
---moniker "Your_Name" \
---identity "keybase" \
---details "Your_Details" \
---website "Your_Web_Or_Twitter" \
---chain-id initiation-1 \
---commission-rate 0.05 \
---commission-max-rate 0.2 \
---commission-max-change-rate 0.05 \
---from wallet \
---fees 300000uinit \
--y
-```
 
-## Check Logs
-```bash
-sudo journalctl -u initiad -f
-```
+1. Submit a transaction to create a validator:
+    ```bash
+    initiad tx mstaking create-validator \
+    --amount 1000000uinit \
+    --pubkey $(initiad tendermint show-validator) \
+    --moniker "Your_Name" \
+    --identity "keybase" \
+    --details "Your_Details" \
+    --website "Your_Web_Or_Twitter" \
+    --chain-id initiation-1 \
+    --commission-rate 0.05 \
+    --commission-max-rate 0.2 \
+    --commission-max-change-rate 0.05 \
+    --from wallet \
+    --fees 300000uinit \
+    -y
+    ```
 
+## Monitor Node
 
-## Check Block left
-```bash
-local_height=$(initiad status | jq -r .sync_info.latest_block_height); network_height=$(curl -s https://rpc-initia-testnet.trusted-point.com/status | jq -r .result.sync_info.latest_block_height); blocks_left=$((network_height - local_height)); echo "Your node height: $local_height"; echo "Network height: $network_height"; echo "Blocks left: $blocks_left"
-```
+1. Check logs:
+    ```bash
+    sudo journalctl -u initiad -f
+    ```
 
-## Check Sync
-```bash
-initiad status 2>&1 | jq .sync_info
-```
+2. Check blocks left to sync:
+    ```bash
+    local_height=$(initiad status | jq -r .sync_info.latest_block_height); network_height=$(curl -s https://rpc-initia-testnet.trusted-point.com/status | jq -r .result.sync_info.latest_block_height); blocks_left=$((network_height - local_height)); echo "Your node height: $local_height"; echo "Network height: $network_height"; echo "Blocks left: $blocks_left"
+    ```
 
-## Backup priv_validator_key.json
-```bash
-cd .initia; cd config; cat priv_validator_key.json
-```
+3. Check sync status:
+    ```bash
+    initiad status 2>&1 | jq .sync_info
+    ```
 
-Please Backup Your priv_validator_key.json, and don't tell to anybody
+## Backup Validator Key
 
-## Sumbit your node information
-This the from:
+1. Backup your `priv_validator_key.json` file:
+    ```bash
+    cd $HOME/.initia/config
+    cat priv_validator_key.json
+    ```
+    **Important**: Backup this file securely and do not share it with anyone.
 
-https://docs.google.com/forms/d/e/1FAIpQLSc09Kl6mXyZHOL12n_6IUA8MCcL6OqzTqsoZn9N8gpptoeU_Q/viewform
+## Submit Node Information
+
+Complete the following form to submit your node information:
+[Node Information Form](https://docs.google.com/forms/d/e/1FAIpQLSc09Kl6mXyZHOL12n_6IUA8MCcL6OqzTqsoZn9N8gpptoeU_Q/viewform)
