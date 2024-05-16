@@ -50,8 +50,9 @@ Get testnet tokens from the faucet:
 ## Create Validator
 
 1. Submit a transaction to create a validator:
-    ```bash
-    initiad tx mstaking create-validator \
+
+```bash
+initiad tx mstaking create-validator \
 --amount 1000000uinit \
 --pubkey $(initiad tendermint show-validator) \
 --moniker "your_moniker" \
@@ -65,7 +66,7 @@ Get testnet tokens from the faucet:
 --gas-adjustment 1.4 \
 --gas 1000000 \
 --gas-prices 0.15uinit \
-    ```
+```
 
 ## Monitor Node
 
