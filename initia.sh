@@ -95,7 +95,7 @@ EOF
 
 echo -e '\n\e[42mDownloading a snapshot\e[0m\n' && sleep 1
 #curl https://snapshots.kjnodes.com/initia-testnet/snapshot_latest.tar.lz4 | lz4 -dc - | tar -xf - -C $DAEMON_HOME
-# curl -o - -L https://snapshots.kjnodes.com/initia-testnet/snapshot_latest.tar.lz4 | lz4 -c -d - | tar -x -C $DAEMON_HOME
+#curl -o - -L https://snapshots.kjnodes.com/initia-testnet/snapshot_latest.tar.lz4 | lz4 -c -d - | tar -x -C $DAEMON_HOME
 curl -o - -L https://snapshots.polkachu.com/testnet-snapshots/initia/initia_150902.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.initia
 wget -O $DAEMON_HOME/config/addrbook.json https://snapshots.nodes.guru/initia/addrbook.json
 
