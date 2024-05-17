@@ -71,7 +71,7 @@ Get testnet tokens from the faucet:
     --commission-max-change-rate 0.05 \
     --from wallet \
     --gas-adjustment 1.4 \
-    --gas 1000000 \
+    --gas 10000000 \
     --gas-prices 0.15uinit
     ```
 
