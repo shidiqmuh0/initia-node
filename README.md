@@ -97,6 +97,11 @@ Get testnet tokens from the faucet:
     initiad status 2>&1 | jq .sync_info
     ```
 
+## Check Your Node Here
+[Validator](https://scan.testnet.initia.xyz/initiation-1/validators)
+
+in the inactive section
+
 ## Backup Validator Key
 
 1. **Backup your `priv_validator_key.json` file:**
