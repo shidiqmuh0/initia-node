@@ -165,6 +165,61 @@ and run the command to see how many blocks left.
 local_height=$(initiad status | jq -r .sync_info.latest_block_height); network_height=$(curl -s https://rpc-initia-testnet.trusted-point.com/status | jq -r .result.sync_info.latest_block_height); blocks_left=$((network_height - local_height)); echo "Your node height: $local_height"; echo "Network height: $network_height"; echo "Blocks left: $blocks_left"
 ```
 
+# State Sync
+## Before you doing this, please backup your priv_validator_key.json
+
+First, open app.toml
+
+```bash
+ nano .initia/config/app.toml
+```
+
+Add this config, saved this at bottom
+
+```bash
+# Prune Type
+pruning = "custom"
+
+# Prune Strategy
+pruning-keep-every = 0
+
+# State-Sync Snapshot Strategy
+snapshot-interval = 2000
+snapshot-keep-recent = 5
+```
+
+
+(1) stop, backup dulu state validator sama reset data
+
+```bash
+sudo systemctl stop initiad.service
+cp $HOME/.initia/data/priv_validator_state.json $HOME/.bcna/priv_validator_state.json.backup
+initiad tendermint unsafe-reset-all --keep-addr-book --home $HOME/.initia
+```
+
+(2) statesync
+```bash
+SNAP_RPC="https://initia-testnet-rpc.ibs.team:443"
+STATESYNC_PEERS="8e7d1f41d223c12a9025cf34f49c50cb27a5cb18@65.109.82.111:46656"
+
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.initia/config/config.toml
+sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$STATESYNC_PEERS\"|" $HOME/.initia/config/config.toml
+
+mv $HOME/.initia/priv_validator_state.json.backup $HOME/.initia/data/priv_validator_state.json
+```
+
+(3) mulai lagi sama cek log
+```bash
+sudo systemctl start initiad.service && sudo journalctl -fu initiad.service -o cat
+```
+
 ---
 
 By following this guide, you will successfully set up and manage your Initia node. If you encounter any issues, refer to the official documentation or community forums for additional support.
