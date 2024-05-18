@@ -128,6 +128,8 @@ sudo systemctl start initiad
 ```
 
 ## Update Peers
+Before update your peers, please stop your node first
+
 ```bash
 PEERS=$(curl -s --max-time 3 --retry 2 --retry-connrefused "https://rpc-initia-testnet.trusted-point.com/peers.txt")
 if [ -z "$PEERS" ]; then
