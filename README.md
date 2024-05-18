@@ -165,22 +165,28 @@ and run the command to see how many blocks left.
 local_height=$(initiad status | jq -r .sync_info.latest_block_height); network_height=$(curl -s https://rpc-initia-testnet.trusted-point.com/status | jq -r .result.sync_info.latest_block_height); blocks_left=$((network_height - local_height)); echo "Your node height: $local_height"; echo "Network height: $network_height"; echo "Blocks left: $blocks_left"
 ```
 
-# State Sync
-## Before you doing this, please backup your priv_validator_key.json
+Sure, here's the updated README.md with improved formatting:
 
-First, open app.toml
+
+# State Sync
+
+## Before proceeding, make sure to backup your priv_validator_key.json
+
+### Step 1: Modify app.toml
+
+Open the app.toml file using a text editor:
 
 ```bash
- nano .initia/config/app.toml
+nano ~/.initia/config/app.toml
 ```
 
-Add this config, saved this at bottom
+Add the following configurations at the bottom:
 
-```bash
-# Prune Type
+```toml
+# Pruning Type
 pruning = "custom"
 
-# Prune Strategy
+# Pruning Strategy
 pruning-keep-every = 0
 
 # State-Sync Snapshot Strategy
@@ -188,37 +194,46 @@ snapshot-interval = 2000
 snapshot-keep-recent = 5
 ```
 
+### Step 2: Stop, Backup, and Reset Data
 
-(1) stop, backup dulu state validator sama reset data
+Stop the initiad service, backup the state validator, and reset the data:
 
 ```bash
 sudo systemctl stop initiad.service
-cp $HOME/.initia/data/priv_validator_state.json $HOME/.bcna/priv_validator_state.json.backup
-initiad tendermint unsafe-reset-all --keep-addr-book --home $HOME/.initia
+cp ~/.initia/data/priv_validator_state.json ~/.bcna/priv_validator_state.json.backup
+initiad tendermint unsafe-reset-all --keep-addr-book --home ~/.initia
 ```
 
-(2) statesync
+### Step 3: State Sync
+
+Execute the following commands to initiate State Sync:
+
 ```bash
 SNAP_RPC="https://initia-testnet-rpc.ibs.team:443"
 STATESYNC_PEERS="8e7d1f41d223c12a9025cf34f49c50cb27a5cb18@65.109.82.111:46656"
 
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000))
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 
 sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.initia/config/config.toml
-sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$STATESYNC_PEERS\"|" $HOME/.initia/config/config.toml
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.initia/config/config.toml
+sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$STATESYNC_PEERS\"|" ~/.initia/config/config.toml
 
-mv $HOME/.initia/priv_validator_state.json.backup $HOME/.initia/data/priv_validator_state.json
+mv ~/.initia/priv_validator_state.json.backup ~/.initia/data/priv_validator_state.json
 ```
 
-(3) mulai lagi sama cek log
+### Step 4: Restart and Check Logs
+
+Start the initiad service again and check the logs:
+
 ```bash
 sudo systemctl start initiad.service && sudo journalctl -fu initiad.service -o cat
 ```
+
+Remember to replace any placeholders like file paths or URLs with the actual values relevant to your setup.
 
 ---
 
