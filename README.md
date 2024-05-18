@@ -116,6 +116,32 @@ in the inactive section
 Complete the following form to submit your node information:
 [Node Information Form](https://docs.google.com/forms/d/e/1FAIpQLSc09Kl6mXyZHOL12n_6IUA8MCcL6OqzTqsoZn9N8gpptoeU_Q/viewform)
 
+## Stop Node
+```bash
+sudo systemctl stop initiad
+```
+
+
+## Start node
+```bash
+sudo systemctl start initiad
+```
+
+## Update Peers
+```bash
+PEERS=$(curl -s --max-time 3 --retry 2 --retry-connrefused "https://rpc-initia-testnet.trusted-point.com/peers.txt")
+if [ -z "$PEERS" ]; then
+    echo "No peers were retrieved from the URL."
+else
+    echo -e "
+PEERS: "$PEERS""
+    sed -i "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" "$HOME/.initia/config/config.toml"
+    echo -e "
+Configuration file updated successfully.
+"
+fi
+```
+
 ---
 
 By following this guide, you will successfully set up and manage your Initia node. If you encounter any issues, refer to the official documentation or community forums for additional support.
