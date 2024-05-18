@@ -147,3 +147,6 @@ fi
 ---
 
 By following this guide, you will successfully set up and manage your Initia node. If you encounter any issues, refer to the official documentation or community forums for additional support.
+
+# Thanks to for helping
+Ikan Cupang, @sxlmnwb, @ashitherewego
