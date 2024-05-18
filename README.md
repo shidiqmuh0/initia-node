@@ -131,7 +131,7 @@ sudo systemctl start initiad
 Before update your peers, please stop your node first
 
 ```bash
-PEERS=$(curl -s --max-time 3 --retry 2 --retry-connrefused "https://rpc-initia-testnet.trusted-point.com/peers.txt")
+PEERS=$(curl -s --max-time 3 --retry 2 --retry-connrefused "https://raw.githubusercontent.com/shidiqmuh0/initia-node/main/peers.sh")
 if [ -z "$PEERS" ]; then
     echo "No peers were retrieved from the URL."
 else
