@@ -127,6 +127,11 @@ sudo systemctl stop initiad
 sudo systemctl start initiad
 ```
 
+## Restart node
+```bash
+sudo systemctl restart initiad
+```
+
 ## Update Peers
 Before update your peers, please stop your node first
 
