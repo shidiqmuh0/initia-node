@@ -144,6 +144,16 @@ Configuration file updated successfully.
 fi
 ```
 
+**If your node can't catch up try to disable indexer in config.toml and restart**
+
+```bash
+sed -i "s/^indexer *=.*/indexer = \"null\"/" $HOME/.initia/config/config.toml
+```
+```bash
+sudo systemctl restart initiad && sudo journalctl -u initiad -f -o cat
+``` and run the command to see how many blocks left.
+```local_height=$(initiad status | jq -r .sync_info.latest_block_height); network_height=$(curl -s https://rpc-initia-testnet.trusted-point.com/status | jq -r .result.sync_info.latest_block_height); blocks_left=$((network_height - local_height)); echo "Your node height: $local_height"; echo "Network height: $network_height"; echo "Blocks left: $blocks_left"```
+
 ---
 
 By following this guide, you will successfully set up and manage your Initia node. If you encounter any issues, refer to the official documentation or community forums for additional support.
